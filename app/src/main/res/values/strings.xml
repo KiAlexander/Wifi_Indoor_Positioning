@@ -103,9 +103,6 @@
     <string name="filename_title">Radio Map Filename</string>
     <string name="filename_summary">The filename of radio map file</string>
 
-    <!--<string name="parentDir">..</string>-->
-    <!--<string name="homeDir">.</string>-->
-    <!--<string name="rootDir">/</string>-->
 
     <string name="algorithms_title">Positioning Algorithms</string>
     <string name="algorithms_summary">Choose one of the following algorithms to estimate

@@ -70,7 +70,7 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
 		// Load the appropriate preferences
 		getPreferenceManager().setSharedPreferencesName(FindMe.SHARED_PREFS_INDOOR);
 
-		addPreferencesFromResource(R.xml.preferences);
+		addPreferencesFromResource(R.xml.preferences2);
 
 		getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 

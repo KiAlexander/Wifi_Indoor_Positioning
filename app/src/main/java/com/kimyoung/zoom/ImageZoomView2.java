@@ -35,10 +35,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 /*
-
-
  * Copyright (c) 2010, Sony Ericsson Mobile Communication AB. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, 
@@ -70,6 +67,8 @@ package com.kimyoung.zoom;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
+import com.kimyoung.BooleanObservable;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -77,14 +76,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Toast;
 
 /**
  * View capable of drawing an image at different zoom state levels
  */
-public class ImageZoomView extends View implements Observer {
+public class ImageZoomView2 extends View implements Observer {
 
 	/** Paint object used when drawing bitmap. */
 	private final Paint mPaint = new Paint(Paint.FILTER_BITMAP_FLAG);
@@ -106,17 +105,14 @@ public class ImageZoomView extends View implements Observer {
 
 	// Public methods
 	private ClickPoint curClick;
-	private final PointF prevClick = new PointF(0, 0);
-	private final ClickPoint clickPoint = new ClickPoint(-1, -1);
-
 	private ArrayList<PointF> points = new ArrayList<PointF>();
-
-	private Context c = null;
+	private final Paint p = new Paint();
+	private BooleanObservable trackMe;
 
 	/**
 	 * Constructor
 	 */
-	public ImageZoomView(Context context, AttributeSet attrs) {
+	public ImageZoomView2(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
@@ -131,10 +127,6 @@ public class ImageZoomView extends View implements Observer {
 		invalidate();
 	}
 
-	public void setContext(Context c) {
-		this.c = c;
-	}
-
 	/**
 	 * Set image bitmap
 	 * 
@@ -146,9 +138,7 @@ public class ImageZoomView extends View implements Observer {
 
 		mAspectQuotient.updateAspectQuotient(getWidth(), getHeight(), mBitmap.getWidth(), mBitmap.getHeight());
 		mAspectQuotient.notifyObservers();
-
 		points.clear();
-
 		invalidate();
 	}
 
@@ -228,52 +218,64 @@ public class ImageZoomView extends View implements Observer {
 			float Yana = (float) (mRectSrc.bottom - mRectSrc.top) / (float) (mRectDst.bottom - mRectDst.top);
 
 			canvas.drawBitmap(mBitmap, mRectSrc, mRectDst, mPaint);
-			
-			
-			Paint p = new Paint();
-			p.setColor(Color.RED);
 
-			float clickPixelsX = (float) mRectSrc.left + (curClick.get().x - mRectDst.left) * Xana;
-			float clickPixelsY = (float) mRectSrc.top + (curClick.get().y - mRectDst.top) * Yana;
+			if (curClick.get().x >= 0 && curClick.get().x <= bitmapWidth && curClick.get().y >= 0 && curClick.get().y <= bitmapHeight) {
 
-			if (clickPixelsX >= 0 && clickPixelsX <= bitmapWidth && clickPixelsY >= 0 && clickPixelsY <= bitmapHeight) {
-				if (!curClick.get().equals(prevClick.x, prevClick.y)) {
-					prevClick.x = curClick.get().x;
-					prevClick.y = curClick.get().y;
-					clickPoint.setClickPoint(clickPixelsX, clickPixelsY);
-					clickPoint.notifyObservers();
+				boolean isAlreadyMarked = false;
+				PointF point = null;
+				// Check if this point is already marked
+				for (int i = 0; i < points.size(); ++i) {
+					point = (PointF) points.get(i);
+
+					if (curClick.get().equals(point.x, point.y)) {
+						isAlreadyMarked = true;
+
+						PointF pointLast = (PointF) points.get(points.size() - 1);
+
+						if (pointLast != point) {
+							point = (PointF) points.set(i, pointLast);
+							points.set(points.size() - 1, point);
+						}
+						break;
+					}
 				}
-			} else if (!curClick.get().equals(prevClick.x, prevClick.y)) {
-				Toast.makeText(c, "Click a point on the floorplan image!", Toast.LENGTH_SHORT).show();
+
+				if (!isAlreadyMarked)
+					points.add(new PointF(curClick.get().x, curClick.get().y));
 			}
 
+			p.setColor(Color.RED);
+			int radius = 4;
+
 			for (int i = 0; i < points.size(); ++i) {
+
+				if (i == points.size() - 1) {
+					if (trackMe.get())
+						p.setColor(Color.GREEN);
+					else
+						p.setColor(0xff47e3ff);
+					radius = 7;
+				}
 
 				PointF temp = points.get(i);
 
 				if (temp.x != -1 && temp.y != -1 && temp.x >= mRectSrc.left - 5 && temp.x <= mRectSrc.right + 5 && temp.y >= mRectSrc.top - 5
 						&& temp.y <= mRectSrc.bottom + 5) {
-					canvas.drawCircle((temp.x - mRectSrc.left) / Xana + mRectDst.left, (temp.y - mRectSrc.top) / Yana + mRectDst.top, 5, p);
+
+					canvas.drawCircle((temp.x - mRectSrc.left) / Xana + mRectDst.left, (temp.y - mRectSrc.top) / Yana + mRectDst.top, radius, this.p);
+
+					if (i == points.size() - 1) {
+						p.setColor(Color.RED);
+						canvas.drawCircle((temp.x - mRectSrc.left) / Xana + mRectDst.left, (temp.y - mRectSrc.top) / Yana + mRectDst.top, 2, this.p);
+						p.setColor(Color.BLUE);
+						p.setStyle(Style.STROKE);
+						canvas.drawCircle((temp.x - mRectSrc.left) / Xana + mRectDst.left, (temp.y - mRectSrc.top) / Yana + mRectDst.top, radius,
+								this.p);
+						p.setStyle(Style.FILL_AND_STROKE);
+					}
 				}
 			}
-
-			p.setColor(Color.GREEN);
-			if (clickPoint.get().x != -1 && clickPoint.get().y != -1 && clickPoint.get().x >= mRectSrc.left - 5
-					&& clickPoint.get().x <= mRectSrc.right + 5 && clickPoint.get().y >= mRectSrc.top - 5
-					&& clickPoint.get().y <= mRectSrc.bottom + 5) {
-				canvas.drawCircle((clickPoint.get().x - mRectSrc.left) / Xana + mRectDst.left, (clickPoint.get().y - mRectSrc.top) / Yana
-						+ mRectDst.top, 5, p);
-			}
-
 		}
-	}
-
-	public void setPoint() {
-		points.add(new PointF(clickPoint.get().x, clickPoint.get().y));
-	}
-
-	public ClickPoint getClickPoint() {
-		return clickPoint;
 	}
 
 	@Override
@@ -291,4 +293,18 @@ public class ImageZoomView extends View implements Observer {
 		invalidate();
 	}
 
+	public void clearPoints() {
+		points.clear();
+		invalidate();
+	}
+
+	public void setTrackMe(BooleanObservable trackMe) {
+		if (this.trackMe != null) {
+			this.trackMe.deleteObserver(this);
+		}
+		this.trackMe = trackMe;
+		this.trackMe.addObserver(this);
+	}
+
 }
+

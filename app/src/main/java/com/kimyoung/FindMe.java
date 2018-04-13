@@ -206,7 +206,7 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 		// Configure preferences
 		Preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-		PreferenceManager.setDefaultValues(this, SHARED_PREFS_INDOOR, MODE_PRIVATE, R.xml.preferences, true);
+		PreferenceManager.setDefaultValues(this, SHARED_PREFS_INDOOR, MODE_PRIVATE, R.xml.preferences2, true);
 		Preferences = FindMe.this.getSharedPreferences(SHARED_PREFS_INDOOR, MODE_PRIVATE);
 		LocX.setText("X:  ");
 		LocY.setText("Y: ");

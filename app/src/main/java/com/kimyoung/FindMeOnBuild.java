@@ -44,7 +44,7 @@ import android.graphics.BitmapFactory;
 import com.kimyoung.R;
 import com.kimyoung.zoom.ClickPoint;
 import com.kimyoung.zoom.DynamicZoomControl;
-import com.kimyoung.zoom.ImageZoomView;
+import com.kimyoung.zoom.ImageZoomView2;
 import com.kimyoung.zoom.LongPressZoomListener;
 
 public class FindMeOnBuild implements Observer {
@@ -55,7 +55,7 @@ public class FindMeOnBuild implements Observer {
 	private String building_height;
 
 	/** Image zoom view */
-	private ImageZoomView mZoomView;
+	private ImageZoomView2 mZoomView;
 
 	/** Zoom control */
 	private DynamicZoomControl mZoomControl;
@@ -75,7 +75,7 @@ public class FindMeOnBuild implements Observer {
 		mZoomListener = new LongPressZoomListener(fm.getApplicationContext());
 		mZoomListener.setZoomControl(mZoomControl);
 
-		mZoomView = (ImageZoomView) fm.findViewById(R.id.zoomview);
+		mZoomView = (ImageZoomView2) fm.findViewById(R.id.zoomview);
 		mZoomView.setZoomState(mZoomControl.getZoomState());
 		mZoomView.setOnTouchListener(mZoomListener);
 		mZoomView.setCurClick(curClick);
