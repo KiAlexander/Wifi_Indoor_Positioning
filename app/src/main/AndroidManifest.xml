@@ -20,18 +20,20 @@
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name">
-        <activity android:name=".RSSLogger"
+        <activity
+            android:name=".RSSLogger"
             android:label="@string/Logger_name"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".Prefs"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Prefs"
             android:label="@string/prefs_name"
             android:screenOrientation="portrait" />
-        <activity android:name=".FileBrowser.AndroidFileBrowser"
+        <activity
+            android:name=".FileBrowser.AndroidFileBrowser"
             android:label="@string/app_choose_folder"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -40,25 +42,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".FindMe" android:label="@string/Tracker_name"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name=".ChooseAnAlgorithm" android:label="Algorithms Preferences"
+        <activity
+            android:name=".FindMe"
+            android:label="@string/Tracker_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
+        <activity
+            android:name=".ChooseAnAlgorithm"
+            android:label="Algorithms Preferences"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Preferences"
+            android:label="Preferences"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FileBrowser.AndroidFileBrowser2"
+            android:label="@string/app_choose_folder"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".Preferences"
-            android:screenOrientation="portrait" android:label="Preferences" />
-
-    	<activity android:name=".FileBrowser.AndroidFileBrowser2"
-            android:label="@string/app_choose_folder"
-            android:screenOrientation="portrait" />       
-
-  <!--       <activity android:name="com.kimyoung.FileBrowser.AndroidFileBrowser2"
-            android:screenOrientation="portrait">
-        </activity> -->
+        <activity
+            android:name=".RadioMapServer"
+            android:label="RadioMap Server"
+            android:screenOrientation="portrait" />
 
     </application>
 

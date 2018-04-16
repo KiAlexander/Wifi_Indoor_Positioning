@@ -181,7 +181,7 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 		RM = new RadioMap();
 
 		// Button to download indoor radio map
-		btnDownload = (Button) findViewById(R.id.downloadRadioMap);
+		btnDownload = (Button) findViewById(R.id.generateRadioMap);
 		btnDownload.setOnClickListener(this);
 
 		// Button to find user on map
@@ -399,8 +399,12 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 	public void onClick(View v) {
 		switch (v.getId()) {
 		// Download new radiomap
-		case R.id.downloadRadioMap:
-			Download();
+		case R.id.generateRadioMap:
+//			Download();
+//			generate_RadioMap();
+//			TipDialog("Generate Radiomap successfully!");
+			Intent  generate_RadioMap= new Intent(this, RadioMapServer.class);
+			startActivity(generate_RadioMap);
 			break;
 		// Positioning
 		case R.id.find_me:
@@ -422,6 +426,18 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 		}
 
 	}
+
+//	private void generate_RadioMap(){
+//		RadioMapServer RM = new RadioMapServer();
+//		if(!RM.Create_Indoor_Radiomap() && !RM.Create_Indoor_Radiomap_Parameters()){
+//			TipDialog("Created new indoor Radio Map!");
+//		}
+//		else
+//		{
+//			TipDialog("Failed to create Radio Map！");
+//		}
+//
+//	}
 
 	/**
 	 * Downloads new radiomap
@@ -863,4 +879,5 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 		else
 			btnPosError.setVisibility(View.INVISIBLE);
 	}
+
 }

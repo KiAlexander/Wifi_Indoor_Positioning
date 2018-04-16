@@ -40,42 +40,61 @@
 
 	</RelativeLayout>
 
-	<RelativeLayout android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:gravity="top"
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="top"
 		android:paddingTop="10dip">
 
 
 		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			android:layout_width="fill_parent" android:layout_height="fill_parent">
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
 
-			<com.kimyoung.zoom.ImageZoomView2
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:id="@+id/zoomview" android:layout_width="fill_parent"
+			<com.kimyoung.zoom.ImageZoomView2 xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/zoomview"
+				android:layout_width="fill_parent"
 				android:layout_height="fill_parent" />
 
 		</RelativeLayout>
-		
-		<Button android:id="@+id/pos_error" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_centerVertical="true"
-			android:layout_alignParentRight="true" android:background="@drawable/pos_err_button" />
 
-		<Button android:text="Download\nRadioMap" android:id="@+id/downloadRadioMap"
+		<Button
+			android:id="@+id/pos_error"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:background="@drawable/pos_err_button" />
+
+		<Button
+			android:id="@+id/generateRadioMap"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
 			android:layout_alignParentBottom="true"
-			android:layout_alignParentLeft="true" android:layout_height="wrap_content"
-			android:layout_width="wrap_content"></Button>
+			android:layout_alignParentLeft="true"
+			android:text="generate\nRadioMap"></Button>
 
-		<Button android:text="Find Me" android:id="@+id/find_me"
-			android:layout_alignParentBottom="true" android:layout_alignTop="@+id/downloadRadioMap"
-			android:layout_alignBottom="@+id/downloadRadioMap"
-			android:layout_alignParentRight="true" android:layout_height="wrap_content"
-			android:layout_width="wrap_content"></Button>
+		<Button
+			android:id="@+id/find_me"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/generateRadioMap"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignTop="@+id/generateRadioMap"
+			android:text="Find Me"></Button>
 
-		<ToggleButton android:id="@+id/trackme"
-			android:layout_alignTop="@+id/find_me" android:layout_alignBottom="@+id/find_me"
-			android:layout_alignParentBottom="true" android:layout_toRightOf="@+id/downloadRadioMap"
-			android:layout_toLeftOf="@+id/find_me" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:textOn="Track Me On"
-			android:textOff="Track Me Off" />
+		<ToggleButton
+			android:id="@+id/trackme"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/find_me"
+			android:layout_alignParentBottom="true"
+			android:layout_alignTop="@+id/find_me"
+			android:layout_toLeftOf="@+id/find_me"
+			android:layout_toRightOf="@+id/generateRadioMap"
+			android:textOff="Track Me Off"
+			android:textOn="Track Me On" />
 
 	</RelativeLayout>
 

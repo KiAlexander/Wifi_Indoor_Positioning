@@ -48,7 +48,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.provider.MediaStore.MediaColumns;
-import com.kimyoung.R;
 import com.kimyoung.FileBrowser.AndroidFileBrowser;
 
 public class Prefs extends PreferenceActivity implements OnSharedPreferenceChangeListener {
