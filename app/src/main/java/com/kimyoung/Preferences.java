@@ -1,26 +1,4 @@
-/*
- * AirPlace:  The Airplace Project is an OpenSource Indoor and Outdoor
- * Localization solution using WiFi RSS (Receive Signal Strength).
- * The AirPlace Project consists of three parts:
- *
- *  1) The AirPlace Logger (Ideal for collecting RSS Logs)
- *  2) The AirPlace Server (Ideal for transforming the collected RSS logs
- *  to meaningful RadioMap files)
- *  3) The AirPlace Tracker (Ideal for using the RadioMap files for
- *  indoor localization)
- *
- * It is ideal for spaces where GPS signal is not sufficient.
- *
- * Authors:
- * C. Laoudias, G.Larkou, G. Constantinou, M. Constantinides, S. Nicolaou,
- *
- * Supervisors:
- * D. Zeinalipour-Yazti and C. G. Panayiotou
- *
- * Copyright (c) 2011, KIOS Research Center and Data Management Systems Lab (DMSL),
- * University of Cyprus. All rights reserved.
- *
- *
+/**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -48,9 +26,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.provider.MediaStore.MediaColumns;
-import com.kimyoung.FileBrowser.AndroidFileBrowser;
 import com.kimyoung.FileBrowser.AndroidFileBrowser2;
-import com.kimyoung.R;
 
 public class Preferences extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -83,26 +59,6 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
 				Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				i.setType("image/*");
 				startActivityForResult(i, SELECT_IMAGE);
-				return true;
-			}
-		});
-
-		// Custom button to choose folder
-		getPreferenceManager().findPreference("folder_browser").setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-
-				Intent i = new Intent(getBaseContext(), AndroidFileBrowser2.class);
-
-				Bundle extras = new Bundle();
-
-				// Send flag to browse for folder true
-				extras.putInt("to_Browse", 1);
-
-				i.putExtras(extras);
-
-				startActivityForResult(i, SELECT_PATH);
 				return true;
 			}
 		});

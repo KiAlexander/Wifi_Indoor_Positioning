@@ -1,7 +1,4 @@
-/*
-* Copyright (c) 2011, KIOS Research Center and Data Management Systems Lab,
-* University of Cyprus. All rights reserved.
-*
+/**
 * Redistribution and use in source and binary forms, with or without modification,
 * are permitted provided that the following conditions are met:
 *
@@ -26,7 +23,7 @@
 * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package com.kimyoung.airplacersslogger.FileBrowser;
+package com.kimyoung.FileBrowser;
 
 import android.graphics.drawable.Drawable;
 
@@ -41,24 +38,8 @@ public class IconifiedText implements Comparable<IconifiedText> {
 		mText = text;
 	}
 
-	public boolean isSelectable() {
-		return mSelectable;
-	}
-
-	public void setSelectable(boolean selectable) {
-		mSelectable = selectable;
-	}
-
 	public String getText() {
 		return mText;
-	}
-
-	public void setText(String text) {
-		mText = text;
-	}
-
-	public void setIcon(Drawable icon) {
-		mIcon = icon;
 	}
 
 	public Drawable getIcon() {

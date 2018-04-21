@@ -23,9 +23,9 @@
     <string name="samples_interval_summary">Time between two consecutive samplings</string>
 
     <string name="storing_title">Storing Settings</string>
-    <string name="folder">Folder</string>
+    <string name="folder">RSS Folder</string>
     <string name="folder_store_rss">The folder to store RSS log files</string>
-    <string name="filename">Filename</string>
+    <string name="filename">RSS Filename</string>
     <string name="filename_contain_rss">The file contains RSS log records</string>
 
     <string name="uploading_title">Uploading Settings</string>

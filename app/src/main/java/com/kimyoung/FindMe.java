@@ -1,26 +1,4 @@
-/*
- * AirPlace:  The Airplace Project is an OpenSource Indoor and Outdoor
- * Localization solution using WiFi RSS (Receive Signal Strength).
- * The AirPlace Project consists of three parts:
- *
- *  1) The AirPlace Logger (Ideal for collecting RSS Logs)
- *  2) The AirPlace Server (Ideal for transforming the collected RSS logs
- *  to meaningful RadioMap files)
- *  3) The AirPlace Tracker (Ideal for using the RadioMap files for
- *  indoor localization)
- *
- * It is ideal for spaces where GPS signal is not sufficient.
- *
- * Authors:
- * C. Laoudias, G.Larkou, G. Constantinou, M. Constantinides, S. Nicolaou,
- *
- * Supervisors:
- * D. Zeinalipour-Yazti and C. G. Panayiotou
- *
- * Copyright (c) 2011, KIOS Research Center and Data Management Systems Lab (DMSL),
- * University of Cyprus. All rights reserved.
- *
- *
+/**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -42,7 +20,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -72,7 +49,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.kimyoung.CalculationModes.OfflineMode;
-import com.kimyoung.Downloading.DownloadingSettings;
 
 public class FindMe extends Activity implements OnClickListener, OnSharedPreferenceChangeListener, Observer {
 
@@ -120,16 +96,10 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 
 	private SharedPreferences Preferences;
 
-	// Path and filename to store radio-map file
-	private String folder_path;
-
 	private String imagePath;
 	// Image width and height in meters
 	private String building_width;
 	private String building_height;
-
-	// The filename of downloading radiomap
-	private String filename_radiomap_download;
 
 	// Filename of radiomap to use for positioning
 	private String filename_radiomap;
@@ -143,7 +113,6 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 
 	private ProgressDialog progressDialog;
 	private OfflineMode offmode;
-	private DownloadingSettings downloadSet;
 
 	private final BooleanObservable trackMe = new BooleanObservable();
 
@@ -427,87 +396,6 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 
 	}
 
-//	private void generate_RadioMap(){
-//		RadioMapServer RM = new RadioMapServer();
-//		if(!RM.Create_Indoor_Radiomap() && !RM.Create_Indoor_Radiomap_Parameters()){
-//			TipDialog("Created new indoor Radio Map!");
-//		}
-//		else
-//		{
-//			TipDialog("Failed to create Radio Map！");
-//		}
-//
-//	}
-
-	/**
-	 * Downloads new radiomap
-	 * */
-	private void Download() {
-
-		String serverAddress = null;
-		String portNumber = null;
-
-		serverAddress = Preferences.getString("serverIP", "").trim();
-		portNumber = Preferences.getString("serverPORT", "").trim();
-		folder_path = (String) Preferences.getString("folder_browser", "").trim();
-		filename_radiomap_download = (String) Preferences.getString("radiomap_file_download", "").trim();
-
-		// Check IP/Port of Server
-		if (serverAddress.equals("")) {
-			popup_msg("Unable to start connection with the server\n"
-					+ "Go to Menu::Preferences::Radiomap Settings::RadioMap Download Settings::Connection Settings::Server Address", "User Error",
-					R.drawable.error);
-			return;
-		} else if (portNumber.equals("")) {
-			popup_msg("Unable to start connection with the server\n"
-					+ "Go to Menu::Preferences::Radiomap Settings::RadioMap Download Settings::Connection Settings::Port number", "User Error",
-					R.drawable.error);
-			return;
-		}
-
-		// Check folder path to store radio map
-		if (folder_path.equals("")) {
-			popup_msg("Folder path is not specified\n"
-					+ "Go to Menu::Preferences::Radiomap Settings::RadioMap Download Settings::Downloading Settings::Radio Map Folder", "User Error",
-					R.drawable.error);
-			return;
-		} else if ((!(new File(folder_path).canWrite()))) {
-			popup_msg("Folder path is not writable\n"
-					+ "Go to Menu::Preferences::Radiomap Settings::RadioMap Download Settings::Downloading Settings::Radio Map Folder", "User Error",
-					R.drawable.error);
-			return;
-		}
-
-		// Check radiomap filename
-		if (filename_radiomap_download.equals("")) {
-			popup_msg("Filename of radio map not specified\n"
-					+ "Go to Menu::Preferences::Radiomap Settings::RadioMap Download Settings::Downloading Settings::Radio Map Filename",
-					"User Error", R.drawable.error);
-			return;
-		}
-
-		toastPrint("Trying to connect to " + serverAddress + ":" + portNumber + "...", Toast.LENGTH_LONG);
-
-		// Set in progress (true)
-		synchronized (inProgress) {
-			if (inProgress == true)
-				return;
-			inProgress = true;
-		}
-
-		progressDialog = ProgressDialog.show(FindMe.this, "", "Downloading. Please wait...", true, false);
-
-		downloadSet = new DownloadingSettings(serverAddress, portNumber, folder_path, filename_radiomap_download, handler);
-
-		downloadSet.start();
-
-		// Unset in progress (false)
-		synchronized (inProgress) {
-			inProgress = false;
-		}
-
-	}
-
 	/**
 	 * Starts the appropriate positioning algorithm
 	 * */
@@ -752,15 +640,7 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 				}
 				break;
 
-			case -2:
-				progressDialog.dismiss();
-				if (downloadSet.getErrMsg() != null)
-					popup_msg(downloadSet.getErrMsg(), "Error", R.drawable.error);
-				else
-					popup_msg("Radio Map and Parameters Successfully Downloaded and Stored, on "
-							+ Calendar.getInstance().getTime().toString(), "Info", R.drawable.info);
-				break;
-			}
+		}
 		}
 	};
 

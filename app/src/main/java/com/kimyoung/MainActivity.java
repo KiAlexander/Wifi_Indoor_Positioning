@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
                 item.setTitle("Tracker Mode");
                 startTracker();
                 return true;
-            default: // change map
+            default:
                 return super.onOptionsItemSelected(item);
         }
     }

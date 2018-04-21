@@ -26,11 +26,11 @@
 
 	<PreferenceCategory android:title="@string/storing_title">
 
-		<Preference android:key="folder_browser" android:title="@string/folder_browser_title"
-			android:summary="@string/folder_browser_summary" />
+		<Preference android:key="folder_browser" android:title="@string/folder"
+			android:summary="@string/folder_store_rss" />
 
-		<EditTextPreference android:title="@string/filename_title"
-			android:key="filename_log" android:summary="@string/filename_summary"
+		<EditTextPreference android:title="@string/filename"
+			android:key="filename_log" android:summary="@string/filename_contain_rss"
 			android:defaultValue="rss-log"></EditTextPreference>
 
 		<CheckBoxPreference android:title="Write Mode"
@@ -39,17 +39,17 @@
 
 	</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/uploading_title">
+	<!--<PreferenceCategory android:title="@string/uploading_title">-->
 
-		<EditTextPreference android:title="@string/server_IP_title"
-			android:key="serverIP" android:summary="@string/server_IP_summary"
-			android:maxLength="15"></EditTextPreference>
-		<EditTextPreference android:title="@string/server_PORT_title"
-			android:key="serverPORT" android:summary="@string/server_PORT_summary"
-			android:inputType="number" android:maxLength="5"></EditTextPreference>
-		<Preference android:key="upload_file" android:title="@string/upload_file_title"
-			android:summary="@string/upload_file_summary" />
-	</PreferenceCategory>
+		<!--<EditTextPreference android:title="@string/server_IP_title"-->
+			<!--android:key="serverIP" android:summary="@string/server_IP_summary"-->
+			<!--android:maxLength="15"></EditTextPreference>-->
+		<!--<EditTextPreference android:title="@string/server_PORT_title"-->
+			<!--android:key="serverPORT" android:summary="@string/server_PORT_summary"-->
+			<!--android:inputType="number" android:maxLength="5"></EditTextPreference>-->
+		<!--<Preference android:key="upload_file" android:title="@string/upload_file_title"-->
+			<!--android:summary="@string/upload_file_summary" />-->
+	<!--</PreferenceCategory>-->
 
 
 </PreferenceScreen>

@@ -1,7 +1,4 @@
-/*
-* Copyright (c) 2011, KIOS Research Center and Data Management Systems Lab,
-* University of Cyprus. All rights reserved.
-*
+/**
 * Redistribution and use in source and binary forms, with or without modification,
 * are permitted provided that the following conditions are met:
 *
@@ -34,7 +31,6 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -52,7 +48,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.kimyoung.R;
-import com.kimyoung.Uploading.UploadingSettings;
 import com.kimyoung.RSSLogger;
 
 public class AndroidFileBrowser extends ListActivity implements OnClickListener {
@@ -262,16 +257,6 @@ public class AndroidFileBrowser extends ListActivity implements OnClickListener 
 						data.setData(Uri.parse(pwd.getText().toString()));
 						setResult(RESULT_OK, data);
 
-						ProgressDialog dialog = ProgressDialog.show(AndroidFileBrowser.this, "", "Uploading. Please wait...", true, false);
-
-						UploadingSettings us = new UploadingSettings(IP, PORT, file.getAbsolutePath(), dialog);
-
-						if (us.connect()) {
-							us.start();
-						} else {
-							showAlert(us.getErrMsg(), "Error", this);
-							dialog.dismiss();
-						}
 					} else
 						showAlert("Read Permission Denied", "Warning", this);
 				} else

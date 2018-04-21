@@ -18,10 +18,6 @@ public class RadioMapServer extends Activity {
     private RadioMap2 rmIndoor;
 
     private final int DefaultNaNValue = -110;
-//    private final String indoorFolder = "indoor";
-//    private final String indoorRSSFolder = "indoor-rss-logs";
-//    private final String indoorFilename = indoorFolder + "/indoor-radiomap.txt";
-//    private final String indoorTestData = indoorFolder + "/test-data.txt";
 
     private String folder_path;
     private String indoorFolder;
@@ -30,7 +26,6 @@ public class RadioMapServer extends Activity {
     private String indoorTestData;
     private SharedPreferences sharedPreferences;
 
-//    private AlertDialog dialog_disclose;
     private ProgressDialog progressDialog;
 
     @Override
@@ -43,7 +38,6 @@ public class RadioMapServer extends Activity {
         folder_path = sharedPreferences.getString("folder_browser", "");
 
         indoorFolder = folder_path + "/indoor";
-//        indoorRSSFolder = folder_path + "/indoor-rss-logs";
         indoorRSSFolder = folder_path ;
         indoorFilename = indoorFolder + "/indoor-radiomap.txt";
         indoorTestData = indoorFolder + "/test-data.txt";

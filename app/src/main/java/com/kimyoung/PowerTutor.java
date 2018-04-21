@@ -1,25 +1,4 @@
-/*
- * AirPlace:  The Airplace Project is an OpenSource Indoor and Outdoor
- * Localization solution using WiFi RSS (Receive Signal Strength).
- * The AirPlace Project consists of three parts:
- *
- *  1) The AirPlace Logger (Ideal for collecting RSS logs)
- *  2) The AirPlace Server (Ideal for transforming the collected RSS logs
- *  to meaningful RadioMap files)
- *  3) The AirPlace Tracker (Ideal for using the RadioMap files for
- *  indoor localization)
- *
- * It is ideal for spaces where GPS signal is not sufficient.
- *
- * Authors:
- *
- * C. Laoudias, G. Constantinou, M. Constantinides, S. Nicolaou,
- * D. Zeinalipour-Yazti and C. G. Panayiotou
- *
- * Copyright (c) 2011, KIOS Research Center and Data Management Systems Lab,
- * University of Cyprus. All rights reserved.
- *
- *
+/**
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -37,14 +16,10 @@
 package com.kimyoung;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 public class PowerTutor {
 
@@ -123,36 +98,6 @@ public class PowerTutor {
 			return str[1];
 
 		return null;
-	}
-
-	public static void writePowerInFile(ArrayList<String[]> str, String id, String Path) throws IOException {
-
-		FileWriter fstream = new FileWriter(Path);
-
-		BufferedWriter out = new BufferedWriter(fstream);
-
-		out.write("CPU: \n");
-		for (int i = 0; i < str.size(); ++i) {
-			if (str.get(i).length == 2) {
-				// System.out.println(str.get(i)[0]);
-				if (str.get(i)[0].contains(id) && str.get(i)[0].contains("CPU-" + id)) {
-					out.write(str.get(i)[1] + "\n");
-
-				}
-			}
-		}
-
-		out.write("\nWIFI: \n");
-		for (int i = 0; i < str.size(); ++i) {
-			if (str.get(i).length == 2) {
-				// System.out.println(str.get(i)[0]);
-				if (str.get(i)[0].contains(id) && str.get(i)[0].contains("Wifi-" + id)) {
-					out.write(str.get(i)[1] + "\n");
-
-				}
-			}
-		}
-		out.close();
 	}
 
 }

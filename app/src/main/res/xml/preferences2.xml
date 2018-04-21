@@ -13,34 +13,34 @@
 
 	<PreferenceCategory android:title="@string/radiomap_file_settings">
 
-		<PreferenceScreen android:title="@string/radiomap_download_title"
-			android:summary="@string/radiomap_download_summary" xmlns:android="http://schemas.android.com/apk/res/android">
+		<!--<PreferenceScreen android:title="@string/radiomap_download_title"-->
+			<!--android:summary="@string/radiomap_download_summary" xmlns:android="http://schemas.android.com/apk/res/android">-->
 
-			<PreferenceCategory android:title="@string/download_connection_title">
+			<!--<PreferenceCategory android:title="@string/download_connection_title">-->
 
-				<EditTextPreference android:title="@string/serverIP_title"
-					android:key="serverIP" android:summary="@string/serverIP_summary"
-					android:maxLength="15"></EditTextPreference>
+				<!--<EditTextPreference android:title="@string/serverIP_title"-->
+					<!--android:key="serverIP" android:summary="@string/serverIP_summary"-->
+					<!--android:maxLength="15"></EditTextPreference>-->
 
-				<EditTextPreference android:title="@string/serverPORT_title"
-					android:key="serverPORT" android:summary="@string/serverPORT_summary"
-					android:inputType="number" android:maxLength="5"></EditTextPreference>
+				<!--<EditTextPreference android:title="@string/serverPORT_title"-->
+					<!--android:key="serverPORT" android:summary="@string/serverPORT_summary"-->
+					<!--android:inputType="number" android:maxLength="5"></EditTextPreference>-->
 
-			</PreferenceCategory>
+			<!--</PreferenceCategory>-->
 
 
-			<PreferenceCategory android:title="@string/downloading_file_title">
+			<!--<PreferenceCategory android:title="@string/downloading_file_title">-->
 
-				<Preference android:key="folder_browser" android:title="@string/folder_browser_title"
-					android:summary="@string/folder_browser_summary" />
+				<!--<Preference android:key="folder_browser" android:title="@string/folder_browser_title"-->
+					<!--android:summary="@string/folder_browser_summary" />-->
 
-				<EditTextPreference android:title="@string/filename_title"
-					android:key="radiomap_file_download" android:summary="@string/filename_summary"
-					android:defaultValue="radiomap_indoor"></EditTextPreference>
+				<!--<EditTextPreference android:title="@string/filename_title"-->
+					<!--android:key="radiomap_file_download" android:summary="@string/filename_summary"-->
+					<!--android:defaultValue="radiomap_indoor"></EditTextPreference>-->
 
-			</PreferenceCategory>
+			<!--</PreferenceCategory>-->
 
-		</PreferenceScreen>
+		<!--</PreferenceScreen>-->
 
 		<Preference android:key="radiomap_file" android:title="@string/radiomap_file_title"
 			android:summary="@string/radiomap_file_summary" />
