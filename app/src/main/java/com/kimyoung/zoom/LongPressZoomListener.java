@@ -126,7 +126,7 @@ public class LongPressZoomListener implements View.OnTouchListener {
 	private final int mScaledMaximumFlingVelocity;
 
 	private final ClickPoint curClick = new ClickPoint(0, 0);
-	
+
 	/**
 	 * Creates a new instance
 	 * 
@@ -245,11 +245,8 @@ public class LongPressZoomListener implements View.OnTouchListener {
 			v.removeCallbacks(mLongPressRunnable);
 			mMode = Mode.UNDEFINED;
 			break;
-
 		}
-
 		return true;
 	}
-
 
 }

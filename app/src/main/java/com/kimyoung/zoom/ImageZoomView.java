@@ -181,7 +181,7 @@ public class ImageZoomView extends View implements Observer {
 	// Superclass overrides
 
 	@Override
-	protected void onDraw(Canvas canvas) {
+ 	protected void onDraw(Canvas canvas) {
 		if (mBitmap != null && mState != null) {
 			final float aspectQuotient = mAspectQuotient.get();
 

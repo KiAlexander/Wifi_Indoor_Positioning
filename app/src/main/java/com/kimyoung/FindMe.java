@@ -369,9 +369,6 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 		switch (v.getId()) {
 		// Download new radiomap
 		case R.id.generateRadioMap:
-//			Download();
-//			generate_RadioMap();
-//			TipDialog("Generate Radiomap successfully!");
 			Intent  generate_RadioMap= new Intent(this, RadioMapServer.class);
 			startActivity(generate_RadioMap);
 			break;

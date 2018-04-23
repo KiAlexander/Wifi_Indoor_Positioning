@@ -139,11 +139,6 @@ public class RadioMapServer extends Activity {
             return;
         }
 
-//        try {
-//            Thread.currentThread().sleep(2000);//阻断2秒
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         progressDialog.dismiss();
 
 //        dialog_disclose.dismiss();

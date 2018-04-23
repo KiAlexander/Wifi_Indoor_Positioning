@@ -73,7 +73,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.Paint.Style;
@@ -108,6 +110,12 @@ public class ImageZoomView2 extends View implements Observer {
 	private ArrayList<PointF> points = new ArrayList<PointF>();
 	private final Paint p = new Paint();
 	private BooleanObservable trackMe;
+
+	//add
+	private float x_temp =0;
+	private float y_temp =0;
+	private Path mPath = new Path();
+	//add
 
 	/**
 	 * Constructor
@@ -273,6 +281,29 @@ public class ImageZoomView2 extends View implements Observer {
 								this.p);
 						p.setStyle(Style.FILL_AND_STROKE);
 					}
+
+					/******************/
+					if (trackMe.get()) {
+						if (x_temp == 0 && y_temp == 0) {
+							x_temp = (temp.x - mRectSrc.left) / Xana + mRectDst.left;
+							y_temp = (temp.y - mRectSrc.top) / Yana + mRectDst.top;
+						} else {
+							Paint mPaint = new Paint();
+							mPaint.setStyle(Paint.Style.STROKE);
+							mPaint.setAntiAlias(true);
+							mPaint.setStrokeWidth(2);
+							mPaint.setColor(Color.parseColor("#4d7aad"));
+							mPaint.setPathEffect(new DashPathEffect(new float[]{4, 4}, 0));
+							//绘制长度为4的实线后再绘制长度为4的空白区域，0位间隔
+							mPath.moveTo(x_temp, y_temp);
+							mPath.lineTo((temp.x - mRectSrc.left) / Xana + mRectDst.left, (temp.y - mRectSrc.top) / Yana + mRectDst.top);
+							canvas.drawPath(mPath, mPaint);
+							x_temp = (temp.x - mRectSrc.left) / Xana + mRectDst.left;
+							y_temp = (temp.y- mRectSrc.top) / Yana + mRectDst.top;
+						}
+					}
+					/******************/
+
 				}
 			}
 		}
@@ -297,6 +328,14 @@ public class ImageZoomView2 extends View implements Observer {
 		points.clear();
 		invalidate();
 	}
+
+	/******************/
+	public void clearPath(){
+		mPath.reset();
+		invalidate();
+	}
+	/******************/
+
 
 	public void setTrackMe(BooleanObservable trackMe) {
 		if (this.trackMe != null) {

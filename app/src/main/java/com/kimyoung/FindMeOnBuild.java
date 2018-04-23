@@ -24,6 +24,9 @@ import com.kimyoung.zoom.DynamicZoomControl;
 import com.kimyoung.zoom.ImageZoomView2;
 import com.kimyoung.zoom.LongPressZoomListener;
 
+import android.graphics.Canvas;
+import android.graphics.Path;
+
 public class FindMeOnBuild implements Observer {
 
 	private final ClickPoint curClick = new ClickPoint(-1, -1);
@@ -44,6 +47,11 @@ public class FindMeOnBuild implements Observer {
 	private LongPressZoomListener mZoomListener;
 
 	private BooleanObservable trackMe;
+
+	private int x_temp = 0;
+	private int y_temp = 0;
+	private Canvas canvas = new Canvas();
+	private Path mPath = new Path();
 	
 	public FindMeOnBuild(FindMe fm) {
 
@@ -58,7 +66,6 @@ public class FindMeOnBuild implements Observer {
 		mZoomView.setCurClick(curClick);
 		
 		mZoomControl.setAspectQuotient(mZoomView.getAspectQuotient());
-
 	}
 
 	public void setTrackMe(BooleanObservable trackMe) {
@@ -121,8 +128,12 @@ public class FindMeOnBuild implements Observer {
 		}
 
 		// Clear all overlays if it is not tracking
-		if (!trackMe.get())
+		if (!trackMe.get()) {
 			mZoomView.clearPoints();
+
+			//add
+			mZoomView.clearPath();
+		}
 
 		int x_pixels = (int) ((x * mBitmap.getWidth()) / bitmapWidth);
 		int y_pixels = (int) ((y * mBitmap.getHeight()) / bitmapHeight);
@@ -151,6 +162,9 @@ public class FindMeOnBuild implements Observer {
 		mZoomControl.getZoomState().setZoom(1f);
 		mZoomControl.getZoomState().notifyObservers();
 		mZoomView.clearPoints();
+
+		//add
+		mZoomView.clearPath();
 	}
 
 	private void resetLocation() {
@@ -163,6 +177,8 @@ public class FindMeOnBuild implements Observer {
 		// Clear all overlays if it is not tracking
 		if (!trackMe.get()) {
 			mZoomView.clearPoints();
+			//add
+			mZoomView.clearPath();
 		}
 
 	}
