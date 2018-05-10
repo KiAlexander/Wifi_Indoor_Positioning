@@ -33,7 +33,7 @@ public class LoggRecord {
 	}
 
 	public String toString() {
-		String str = new String();
+		String str ;
 		str = String.valueOf(ts) + " " + String.valueOf(lat) + " " + String.valueOf(lng) + " " + String.valueOf(bssid) + " " + String.valueOf(rss)
 				+ "\n";
 		return str;

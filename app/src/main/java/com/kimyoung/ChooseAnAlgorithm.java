@@ -72,12 +72,12 @@ public class ChooseAnAlgorithm extends PreferenceActivity {
 						switch (item) {
 						case 0:
 							popup_msg(
-									"The KNN algorithm estimates the unknown user location as the average of K locations which have the shortest Euclidean distances between the currently observed RSS fingerprint and the respective mean value fingerprints in the radiomap. For more information see:\n\nP. Bahl and V. Padmanabhan, �RADAR: an in-building RF-based user location and tracking system,� in IEEE International Conference on Computer Communications INFOCOM, vol. 2, 2000, pp. 775�784.",
+									"The KNN algorithm estimates the unknown user location as the average of K locations which have the shortest Euclidean distances between the currently observed RSS fingerprint and the respective mean value fingerprints in the radiomap. For more information see:\n\nP. Bahl and V. Padmanabhan,� RADAR: an in-building RF-based user location and tracking system,� in IEEE International Conference on Computer Communications INFOCOM, vol. 2, 2000, pp. 775�784.",
 									"K-Nearest Neighbor (KNN)", 0);
 							break;
 						case 1:
 							popup_msg(
-									"The WKNN algorithm is a variant of KNN and estimates the unknown user location as the weighted average of K locations which have the shortest Euclidean distances between the currently observed RSS fingerprint and the respective mean value fingerprints in the radiomap. The weight of each location is set equal to the inverse of the distance. For more information see:\n\nB. Li, J. Salter, A. Dempster, and C. Rizos, �Indoor positioning techniques based on wireless LAN,� in 1st IEEE International Conference on Wireless Broadband and Ultra Wideband Communications, 2006, pp. 13�16.",
+									"The WKNN algorithm is a variant of KNN and estimates the unknown user location as the weighted average of K locations which have the shortest Euclidean distances between the currently observed RSS fingerprint and the respective mean value fingerprints in the radiomap. The weight of each location is set equal to the inverse of the distance. For more information see:\n\nB. Li, J. Salter, A. Dempster, and C. Rizos,Indoor positioning techniques based on wireless LAN,� in 1st IEEE International Conference on Wireless Broadband and Ultra Wideband Communications, 2006, pp. 13�16.",
 									"Weighted K-Nearest Neighbor (WKNN)", 0);
 							break;
 						case 2:

@@ -32,7 +32,8 @@ public class OfflineMode extends Thread {
 	private final File test_data_file;
 	private final int algorithm_selection;
 
-	private double average_pos_err, average_exe_time;
+	private double[] average_pos_err = new double[4];
+	private double[] average_exe_time =new double[4];
 
 	// The scan list to use for offline
 	private ArrayList<LogRecord> OfflineScanList;
@@ -55,24 +56,24 @@ public class OfflineMode extends Thread {
 
 		OfflineScanList.clear();
 
-		BufferedReader reader = null;
+		BufferedReader reader;
 		String line;
 		String[] temp;
 
-		String test_geo;
-		int count_test_pos = 0;
-		double pos_error;
-		double sum_pos_error = 0;
+		String[] test_geo = new String[4];
+		int[] count_test_pos = new int[4];
+		double[] pos_error = new double[4];
+		double[] sum_pos_error = new double[4];
 
 		long bytesRead = 0;
 		long bytesTotal = test_data_file.length();
 		int perc = 0;
 
-		long start = 0;
-		long finish = 0;
-		long total = 0;
+		long start ;
+		long finish ;
+		long total[] = new long[4];
 
-		ArrayList<String> MacAdressList = new ArrayList<String>();
+		ArrayList<String> MacAddressList = new ArrayList<String>();
 
 		try {
 
@@ -109,77 +110,84 @@ public class OfflineMode extends Thread {
 
 				// Store all Mac Addresses
 				for (int i = 3; i < temp.length; ++i)
-					MacAdressList.add(temp[i]);
+					MacAddressList.add(temp[i]);
 			} else {
 				errMsg = test_data_file + " file is corrupted";
 				handler.sendEmptyMessage(-1);
 				return;
 			}
 
-			count_test_pos = 0;
+				while ((line = reader.readLine()) != null) {
 
-			while ((line = reader.readLine()) != null) {
+					bytesRead += line.length() + 1;
 
-				bytesRead += line.length() + 1;
+					line = line.trim().replace(", ", " ");
+					temp = line.split(" ");
 
-				line = line.trim().replace(", ", " ");
-				temp = line.split(" ");
+					if (temp.length < 3) {
+						errMsg = test_data_file + " file is corrupted";
+						handler.sendEmptyMessage(-1);
+						return;
+					}
 
-				if (temp.length < 3) {
-					errMsg = test_data_file + " file is corrupted";
-					handler.sendEmptyMessage(-1);
-					return;
+					if (MacAddressList.size() != temp.length - 2) {
+						errMsg = test_data_file + " file is corrupted";
+						handler.sendEmptyMessage(-1);
+						return;
+					}
+
+					for (int i = 2; i < temp.length; ++i) {
+						LogRecord lr = new LogRecord(MacAddressList.get(i - 2), Integer.parseInt(temp[i]));
+						OfflineScanList.add(lr);
+					}
+
+					if (perc < (int) (((float) bytesRead / (float) bytesTotal) * 100)) {
+						perc = (int) (((float) bytesRead / (float) bytesTotal) * 100);
+						handler.sendEmptyMessage(perc);
+					}
+
+					for(int a = 0;a < 4;a++) {
+
+						start = System.currentTimeMillis();
+
+						test_geo[a] = Algorithms.ProcessingAlgorithms(OfflineScanList, RM, a + 1);
+
+						if (test_geo[a] == null) {
+							errMsg = "Can't calculate a location. Check that test data and radio map files refer to the same area.";
+							handler.sendEmptyMessage(-1);
+							return;
+						}
+
+						finish = System.currentTimeMillis();
+
+						total[a] += (finish - start);
+
+
+//						OfflineScanList.clear();
+
+						pos_error[a] = calculateEuclideanDistance(temp[0] + " " + temp[1], test_geo[a]);
+
+						if (pos_error[a] != -1) {
+							sum_pos_error[a] += pos_error[a];
+							count_test_pos[a]++;
+						}
+					}
+					OfflineScanList.clear();
 				}
 
-				if (MacAdressList.size() != temp.length - 2) {
-					errMsg = test_data_file + " file is corrupted";
-					handler.sendEmptyMessage(-1);
-					return;
+				reader.close();
+
+				handler.sendEmptyMessage(100);
+
+				for(int a = 0;a < 4;a++) {
+					average_pos_err[a] = sum_pos_error[a] / (double) count_test_pos[a];
+					average_exe_time[a] = total[a] / (double) count_test_pos[a];
 				}
 
-				for (int i = 2; i < temp.length; ++i) {
-					LogRecord lr = new LogRecord(MacAdressList.get(i - 2), Integer.parseInt(temp[i]));
-					OfflineScanList.add(lr);
-				}
+//			}
 
-				if (perc < (int) (((float) bytesRead / (float) bytesTotal) * 100)) {
-					perc = (int) (((float) bytesRead / (float) bytesTotal) * 100);
-					handler.sendEmptyMessage(perc);
-				}
-
-				start = System.currentTimeMillis();
-
-				test_geo = Algorithms.ProcessingAlgorithms(OfflineScanList, RM, algorithm_selection);
-
-				if (test_geo == null) {
-					errMsg = "Can't calculate a location. Check that test data and radio map files refer to the same area.";
-					handler.sendEmptyMessage(-1);
-					return;
-				}
-
-				finish = System.currentTimeMillis();
-
-				total += (finish - start);
-
-				OfflineScanList.clear();
-
-				pos_error = calculateEuclideanDistance(temp[0] + " " + temp[1], test_geo);
-
-				if (pos_error != -1) {
-					sum_pos_error += pos_error;
-					count_test_pos++;
-				}
-			}
-
-			reader.close();
-
-			handler.sendEmptyMessage(100);
-
-			average_pos_err = sum_pos_error / (double) count_test_pos;
-			average_exe_time = total / (double) count_test_pos;
-
-			handler.sendEmptyMessage(-1);
-			errMsg = null;
+				handler.sendEmptyMessage(-1);
+				errMsg = null;
 
 		} catch (Exception ex) {
 			errMsg = "Can't calculate a location.\nError: " + ex.getMessage() + "." + "\nCheck that test data and radio map files are not corrupted.";
@@ -213,11 +221,11 @@ public class OfflineMode extends Thread {
 		return errMsg;
 	}
 
-	public double getAverage_pos_err() {
+	public double[] getAverage_pos_err() {
 		return average_pos_err;
 	}
 
-	public double getAverage_exe_time() {
+	public double[] getAverage_exe_time() {
 		return average_exe_time;
 	}
 

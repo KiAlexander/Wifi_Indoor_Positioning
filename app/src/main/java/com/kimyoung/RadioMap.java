@@ -26,13 +26,13 @@ import java.util.HashMap;
 public class RadioMap {
 
 	private File RadiomapMean_File = null;
-	private ArrayList<String> MacAdressList = null;
+	private ArrayList<String> MacAddressList = null;
 	private HashMap<String, ArrayList<String>> LocationRSS_HashMap = null;
 	private ArrayList<String> OrderList = null;
 
 	public RadioMap() {
 		super();
-		MacAdressList = new ArrayList<String>();
+		MacAddressList = new ArrayList<String>();
 		LocationRSS_HashMap = new HashMap<String, ArrayList<String>>();
 		OrderList = new ArrayList<String>();
 	}
@@ -43,8 +43,8 @@ public class RadioMap {
 	 * @return
 	 *            the list of MAC Addresses
 	 * */
-	public ArrayList<String> getMacAdressList() {
-		return MacAdressList;
+	public ArrayList<String> getMacAddressList() {
+		return MacAddressList;
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class RadioMap {
 		this.RadiomapMean_File = inFile;
 
 		this.OrderList.clear();
-		this.MacAdressList.clear();
+		this.MacAddressList.clear();
 		this.LocationRSS_HashMap.clear();
 
 		ArrayList<String> RSS_Values = null;
@@ -114,7 +114,7 @@ public class RadioMap {
 
 			// Store all Mac Addresses
 			for (int i = 3; i < temp.length; ++i)
-				this.MacAdressList.add(temp[i]);
+				this.MacAddressList.add(temp[i]);
 
 			while ((line = reader.readLine()) != null) {
 				
@@ -135,7 +135,7 @@ public class RadioMap {
 					RSS_Values.add(temp[i]);
 
 				// Equal number of MAC address and RSS Values
-				if (this.MacAdressList.size() != RSS_Values.size())
+				if (this.MacAddressList.size() != RSS_Values.size())
 					return false;
 
 				this.LocationRSS_HashMap.put(key, RSS_Values);
@@ -152,8 +152,8 @@ public class RadioMap {
 	public String toString() {
 		String str = "MAC Adresses: ";
 		ArrayList<String> temp;
-		for (int i = 0; i < MacAdressList.size(); ++i)
-			str += MacAdressList.get(i) + " ";
+		for (int i = 0; i < MacAddressList.size(); ++i)
+			str += MacAddressList.get(i) + " ";
 
 		str += "\nLocations\n";
 		for (String location : LocationRSS_HashMap.keySet()) {

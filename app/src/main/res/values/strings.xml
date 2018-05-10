@@ -11,7 +11,8 @@
     <string name="stop_scan">Stop Scan</string>
     <string name="Preferences">Preferences</string>
     <string name="clear">Clear Screen</string>
-    <string name="shut_down">Close Application</string>
+    <!--<string name="shut_down">Close Application</string>-->
+    <string name="shut_down">Return</string>
 
     <string name="building_setting">Building Settings</string>
     <string name="building_summary">The floor plan image of building</string>

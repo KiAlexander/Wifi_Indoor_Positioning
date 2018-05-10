@@ -74,22 +74,6 @@ public class Prefs extends PreferenceActivity implements OnSharedPreferenceChang
 			}
 		});
 
-//		getPreferenceManager().findPreference("upload_file").setOnPreferenceClickListener(new OnPreferenceClickListener() {
-//
-//			@Override
-//			public boolean onPreferenceClick(Preference preference) {
-//
-//				Intent i = new Intent(getBaseContext(), AndroidFileBrowser.class);
-//
-//				Bundle extras = new Bundle();
-//				extras.putBoolean("to_Browse", false);
-//
-//				i.putExtras(extras);
-//
-//				startActivityForResult(i, SELECT_FILE);
-//				return true;
-//			}
-//		});
 	}
 
 	@Override

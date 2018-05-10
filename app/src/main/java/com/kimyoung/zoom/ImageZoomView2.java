@@ -230,7 +230,7 @@ public class ImageZoomView2 extends View implements Observer {
 			if (curClick.get().x >= 0 && curClick.get().x <= bitmapWidth && curClick.get().y >= 0 && curClick.get().y <= bitmapHeight) {
 
 				boolean isAlreadyMarked = false;
-				PointF point = null;
+				PointF point;
 				// Check if this point is already marked
 				for (int i = 0; i < points.size(); ++i) {
 					point = (PointF) points.get(i);
@@ -282,7 +282,7 @@ public class ImageZoomView2 extends View implements Observer {
 						p.setStyle(Style.FILL_AND_STROKE);
 					}
 
-					/******************/
+					/**virtual line*/
 					if (trackMe.get()) {
 						if (x_temp == 0 && y_temp == 0) {
 							x_temp = (temp.x - mRectSrc.left) / Xana + mRectDst.left;
@@ -294,7 +294,8 @@ public class ImageZoomView2 extends View implements Observer {
 							mPaint.setStrokeWidth(2);
 							mPaint.setColor(Color.parseColor("#4d7aad"));
 							mPaint.setPathEffect(new DashPathEffect(new float[]{4, 4}, 0));
-							//绘制长度为4的实线后再绘制长度为4的空白区域，0位间隔
+							//paint a solid line whose length is 4
+							// then blank area whose length is 4 without space
 							mPath.moveTo(x_temp, y_temp);
 							mPath.lineTo((temp.x - mRectSrc.left) / Xana + mRectDst.left, (temp.y - mRectSrc.top) / Yana + mRectDst.top);
 							canvas.drawPath(mPath, mPaint);

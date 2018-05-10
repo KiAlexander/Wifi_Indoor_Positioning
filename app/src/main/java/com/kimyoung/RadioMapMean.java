@@ -58,7 +58,7 @@ public class RadioMapMean {
      * @return
      *            the list of MAC Addresses
      * */
-    public ArrayList<String> getMacAdressList() {
+    public ArrayList<String> getMacAddressList() {
         return MacAdressList;
     }
 
@@ -92,11 +92,11 @@ public class RadioMapMean {
         this.MacAdressList.clear();
         this.LocationRSS_HashMap.clear();
 
-        ArrayList<String> RSS_Values = null;
-        BufferedReader reader = null;
-        String line = null;
-        String[] temp = null;
-        String key = null;
+        ArrayList<String> RSS_Values;
+        BufferedReader reader;
+        String line;
+        String[] temp;
+        String key;
 
         try {
 

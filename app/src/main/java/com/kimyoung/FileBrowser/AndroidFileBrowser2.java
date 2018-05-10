@@ -43,7 +43,7 @@ public class AndroidFileBrowser2 extends ListActivity implements OnClickListener
 
 	// Enum for the Display Mode
 	private enum DISPLAYMODE {
-		ABSOLUTE, RELATIVE;
+		ABSOLUTE, RELATIVE
 	}
 
 	private final DISPLAYMODE displayMode = DISPLAYMODE.ABSOLUTE;
@@ -195,9 +195,9 @@ public class AndroidFileBrowser2 extends ListActivity implements OnClickListener
 			}
 			break;
 		case RELATIVE:
-			int currentPathStringLenght = this.currentDirectory.getAbsolutePath().length();
+			int currentPathStringLength = this.currentDirectory.getAbsolutePath().length();
 			for (File file : files) {
-				this.directoryEntries.add(file.getAbsolutePath().substring(currentPathStringLenght));
+				this.directoryEntries.add(file.getAbsolutePath().substring(currentPathStringLength));
 			}
 			break;
 		}

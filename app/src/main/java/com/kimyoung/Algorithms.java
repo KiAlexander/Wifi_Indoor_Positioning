@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import android.util.Log;
 
 public class Algorithms {
 
@@ -42,7 +41,7 @@ public class Algorithms {
 
 		int i, j;
 
-		ArrayList<String> MacAdressList = RM.getMacAdressList();
+		ArrayList<String> MacAddressList = RM.getMacAddressList();
 		ArrayList<String> Observed_RSS_Values = new ArrayList<String>();
 		LogRecord temp_LR;
 		int notFoundCounter = 0;
@@ -50,14 +49,14 @@ public class Algorithms {
 		String NaNValue = readParameter(RM.getRadiomapMean_File(), 0);
 
 		// Check which mac addresses of radio map, we are currently listening.
-		for (i = 0; i < MacAdressList.size(); ++i) {
+		for (i = 0; i < MacAddressList.size(); ++i) {
 
 			for (j = 0; j < latestScanList.size(); ++j) {
 
 				temp_LR = latestScanList.get(j);
 
 				// MAC Address Matched
-				if (MacAdressList.get(i).compareTo(temp_LR.getBssid()) == 0) {
+				if (MacAddressList.get(i).compareTo(temp_LR.getBssid()) == 0) {
 					Observed_RSS_Values.add(String.valueOf(temp_LR.getRss()));
 					break;
 				}
@@ -69,7 +68,7 @@ public class Algorithms {
 			}
 		}
 		
-		if (notFoundCounter == MacAdressList.size())
+		if (notFoundCounter == MacAddressList.size())
 			return null;
 
 		// Read parameter of algorithm
@@ -114,7 +113,7 @@ public class Algorithms {
 		ArrayList<String> RSS_Values;
 		float curResult = 0;
 		ArrayList<LocDistance> LocDistance_Results_List = new ArrayList<LocDistance>();
-		String myLocation = null;
+		String myLocation;
 		int K;
 
 		try {
@@ -173,7 +172,7 @@ public class Algorithms {
 	private static String MAP_MMSE_Algorithm(RadioMap RM, ArrayList<String> Observed_RSS_Values, String parameter, boolean isWeighted) {
 
 		ArrayList<String> RSS_Values;
-		double curResult = 0.0d;
+		double curResult;
 		String myLocation = null;
 		double highestProbability = Double.NEGATIVE_INFINITY;
 		ArrayList<LocDistance> LocDistance_Results_List = new ArrayList<LocDistance>();
@@ -398,7 +397,7 @@ public class Algorithms {
 		double WeightedSumY = 0.0f;
 		double NP;
 		float x, y;
-		String[] LocationArray = new String[2];
+		String[] LocationArray;
 
 		// Calculate the sum of all probabilities
 		for (int i = 0; i < LocDistance_Results_List.size(); ++i)
@@ -441,8 +440,8 @@ public class Algorithms {
 	private static String readParameter(File file, int algorithm_choice) {
 
 		String line;
-		BufferedReader reader = null;
-		FileReader fr = null;
+		BufferedReader reader;
+		FileReader fr;
 
 		String parameter = null;
 

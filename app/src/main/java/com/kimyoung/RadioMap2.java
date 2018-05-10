@@ -66,8 +66,10 @@ public class RadioMap2 {
         RadioMap2 = new HashMap<String, HashMap<String, ArrayList<Integer>>>();
         this.rss_folder = rss_folder;
         this.RadioMap_filename = RadioMap_filename;
-        this.RadioMap_mean_filename = RadioMap_filename.replace(".", "-mean.");
-        this.RadioMap_parameters_filename = RadioMap_filename.replace(".", "-parameters.");
+//        this.RadioMap_mean_filename = RadioMap_filename.replace(".", "-mean.txt");
+//        this.RadioMap_parameters_filename = RadioMap_filename.replace(".", "-parameters.txt");
+        this.RadioMap_mean_filename = RadioMap_filename + "-mean";
+        this.RadioMap_parameters_filename = RadioMap_filename +"-parameters";
         this.defaultNaNValue = defaultNaNValue;
         this.isIndoor = this.RadioMap_filename.contains("indoor");
     }
@@ -87,8 +89,6 @@ public class RadioMap2 {
         RadioMap2.clear();
 
         createRadioMapFromPath(rss_folder);
-
-        //createRadioMap2Urgent("radio-map.txt");
 
         if (!writeRadioMap()) {
             return false;
@@ -132,10 +132,10 @@ public class RadioMap2 {
     private void parseLogFileToRadioMap(File inFile) {
 
         int line_num = 0;
-        BufferedReader reader = null;
-        HashMap<String, ArrayList<Integer>> MACAddressMap = null;
-        ArrayList<Integer> RSS_Values = null;
-        String key = "";
+        BufferedReader reader;
+        HashMap<String, ArrayList<Integer>> MACAddressMap;
+        ArrayList<Integer> RSS_Values;
+        String key;
 
         // Check that RSS file is OK
         if (!authenticateRSSlogFile(inFile)) {
@@ -143,8 +143,8 @@ public class RadioMap2 {
         }
 
         try {
-            String line = null;
-            int RSS_Value = 0;
+            String line;
+            int RSS_Value;
             FileReader fr = new FileReader(inFile);
             reader = new BufferedReader(fr);
 
@@ -217,10 +217,10 @@ public class RadioMap2 {
     private boolean authenticateRSSlogFile(File inFile) {
 
         int line_num = 0;
-        BufferedReader reader = null;
+        BufferedReader reader;
 
         try {
-            String line = null;
+            String line ;
             FileReader fr = new FileReader(inFile);
             reader = new BufferedReader(fr);
 
@@ -340,11 +340,11 @@ public class RadioMap2 {
      */
     private boolean find_MIN_MAX_Values() {
 
-        FileReader frRadioMap2 = null;
-        BufferedReader readerRadioMap2 = null;
+        FileReader frRadioMap2;
+        BufferedReader readerRadioMap2;
 
         try {
-            String RadioMap2Line = null;
+            String RadioMap2Line;
 
             frRadioMap2 = new FileReader(RadioMap_filename);
             readerRadioMap2 = new BufferedReader(frRadioMap2);
@@ -421,8 +421,8 @@ public class RadioMap2 {
     private boolean calculateAlgorithmParameter(RadioMapMean RM, String inFile, int algorithm_choice) {
 
 
-        int start = 0;
-        int end = 0;
+        int start;
+        int end;
 
         if (RM == null) {
             return false;
@@ -454,24 +454,24 @@ public class RadioMap2 {
                 return false;
         }
 
-        BufferedReader reader = null;
-        String line = null;
-        String[] temp = null;
+        BufferedReader reader;
+        String line;
+        String[] temp;
 
-        ArrayList<String> MacAdressList = new ArrayList<String>();
+        ArrayList<String> MacAddressList = new ArrayList<String>();
         ArrayList<LogRecord> OfflineScanList = new ArrayList<LogRecord>();
 
-        String test_geo = null;
-        double pos_error = 0.0d;
-        double sum_pos_error = 0.0d;
-        int count_pos = 0;
+        String test_geo;
+        double pos_error ;
+        double sum_pos_error;
+        int count_pos;
         double average_pos_err_cur = Double.POSITIVE_INFINITY;
         double average_pos_err_best = Double.POSITIVE_INFINITY;
 
         for (int parameter = start; parameter <= end; ++parameter) {
 
             OfflineScanList.clear();
-            MacAdressList.clear();
+            MacAddressList.clear();
             sum_pos_error = 0;
             count_pos = 0;
 
@@ -508,7 +508,7 @@ public class RadioMap2 {
                         if (!temp[i].matches("[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}:[a-fA-F0-9]{2}")) {
                             return false;
                         }
-                        MacAdressList.add(temp[i]);
+                        MacAddressList.add(temp[i]);
                     }
                 } else {
                     return false;
@@ -523,20 +523,16 @@ public class RadioMap2 {
                         return false;
                     }
 
-                    if (MacAdressList.size() != temp.length - 2) {
+                    if (MacAddressList.size() != temp.length - 2) {
                         return false;
                     }
 
                     for (int i = 2; i < temp.length; ++i) {
-                        LogRecord lr = new LogRecord(MacAdressList.get(i - 2), Integer.parseInt(temp[i]));
+                        LogRecord lr = new LogRecord(MacAddressList.get(i - 2), Integer.parseInt(temp[i]));
                         OfflineScanList.add(lr);
                     }
 
-                    if (algorithm_choice == 6) {
-                        test_geo = Algorithms2.ProcessingAlgorithms(OfflineScanList, RM, algorithm_choice, String.valueOf(parameter + ", " + MIN_RSS + ", " + MAX_RSS));
-                    } else {
-                        test_geo = Algorithms2.ProcessingAlgorithms(OfflineScanList, RM, algorithm_choice, String.valueOf(parameter));
-                    }
+                    test_geo = Algorithms2.ProcessingAlgorithms(OfflineScanList, RM, algorithm_choice, String.valueOf(parameter));
 
                     if (test_geo == null) {
                         return false;
@@ -626,11 +622,11 @@ public class RadioMap2 {
     private boolean writeRadioMap() {
 
         DecimalFormat dec = new DecimalFormat("###.#");
-        HashMap<String, ArrayList<Integer>> MACAddressMap = null;
-        ArrayList<Integer> RSS_Values = null;
-        FileOutputStream fos = null;
-        FileOutputStream fos_mean = null;
-        String out = null;
+        HashMap<String, ArrayList<Integer>> MACAddressMap;
+        ArrayList<Integer> RSS_Values;
+        FileOutputStream fos;
+        FileOutputStream fos_mean;
+        String out;
 
         File RadioMap2_file = new File(RadioMap_filename);
         File RadioMap2_mean_file = new File(RadioMap_mean_filename);
@@ -683,7 +679,7 @@ public class RadioMap2 {
 
             // For each location print the Average RSS of every single MAC Address
             iterator = s.iterator();
-            String MacAddress = null;
+            String MacAddress;
             for (String location : RadioMap2.keySet()) {
 
                 fos.write(location.replace(" ", ", ").getBytes());

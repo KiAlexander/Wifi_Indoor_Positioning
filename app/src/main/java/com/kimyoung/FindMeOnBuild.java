@@ -48,11 +48,6 @@ public class FindMeOnBuild implements Observer {
 
 	private BooleanObservable trackMe;
 
-	private int x_temp = 0;
-	private int y_temp = 0;
-	private Canvas canvas = new Canvas();
-	private Path mPath = new Path();
-	
 	public FindMeOnBuild(FindMe fm) {
 
 		// Set Zooming and Panning Settings

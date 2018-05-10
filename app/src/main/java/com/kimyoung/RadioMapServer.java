@@ -39,8 +39,8 @@ public class RadioMapServer extends Activity {
 
         indoorFolder = folder_path + "/indoor";
         indoorRSSFolder = folder_path ;
-        indoorFilename = indoorFolder + "/indoor-radiomap.txt";
-        indoorTestData = indoorFolder + "/test-data.txt";
+        indoorFilename = indoorFolder + "/indoor-radiomap";
+        indoorTestData = indoorFolder + "/test-data";
 
         createServerFolders();
 
@@ -84,8 +84,8 @@ public class RadioMapServer extends Activity {
     }
 
     public void createServerFolders() {
-        File f = null;
-        boolean success = false;
+        File f;
+        boolean success;
 
         // Create directory for indoor radiomap, radiomap mean, parameters, rbf-weights
         f = new File(indoorFolder);
@@ -112,21 +112,17 @@ public class RadioMapServer extends Activity {
 
     private void generate_RadioMap(){
 
-//        TipDialog("It needs a long time,please wait！");
-
         progressDialog = ProgressDialog.show(RadioMapServer.this, "", "Generating. Please wait...", true, false);
 
         if(!Create_Indoor_Radiomap() )
         {
             progressDialog.dismiss();
-//            dialog_disclose.dismiss();
             TipDialog("Failed to Create Radiomap！");
             return;
         }
         if(!CopySdcardFile(indoorFilename,indoorTestData))
         {
             progressDialog.dismiss();
-//            dialog_disclose.dismiss();
             TipDialog("Failed to Create Testdata！");
             return;
         }
@@ -134,14 +130,12 @@ public class RadioMapServer extends Activity {
         if(!Create_Indoor_Radiomap_Parameters() )
         {
             progressDialog.dismiss();
-//            dialog_disclose.dismiss();
             TipDialog("Failed to Create Parameters！");
             return;
         }
 
         progressDialog.dismiss();
 
-//        dialog_disclose.dismiss();
         TipDialog("All Created Successfully！");
 
     }

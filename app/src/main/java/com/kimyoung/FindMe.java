@@ -632,8 +632,11 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 				if (offmode.getErrMsg() != null)
 					popup_msg(offmode.getErrMsg(), "Error", R.drawable.error);
 				else {
-					popup_statistics("Average Positioning Error: " + myFormatter.format(offmode.getAverage_pos_err()) + "m\nAverage Execution Time: "
-							+ myFormatter.format(offmode.getAverage_exe_time()) + "ms", "Info", R.drawable.info);
+					popup_statistics("KNN Algorithm:\nAverage Positioning Error: " + myFormatter.format(offmode.getAverage_pos_err()[0]) + "m\nAverage Execution Time: "
+							+ myFormatter.format(offmode.getAverage_exe_time()[0]) + "ms\nWKNN Algorithm:\nAverage Positioning Error: "+ myFormatter.format(offmode.getAverage_pos_err()[1]) + "m\nAverage Execution Time: "
+                            + myFormatter.format(offmode.getAverage_exe_time()[1]) +"ms\nMAP Algorithm:\nAverage Positioning Error: "+ myFormatter.format(offmode.getAverage_pos_err()[2]) + "m\nAverage Execution Time: "
+                            + myFormatter.format(offmode.getAverage_exe_time()[2])+"ms\nMMSE Algorithm:\nAverage Positioning Error: "+ myFormatter.format(offmode.getAverage_pos_err()[3]) + "m\nAverage Execution Time: "
+                            + myFormatter.format(offmode.getAverage_exe_time()[3])+"ms", "Info", R.drawable.info);
 				}
 				break;
 
@@ -694,7 +697,8 @@ public class FindMe extends Activity implements OnClickListener, OnSharedPrefere
 		}).setPositiveButton("Show Power", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				popup_msg(msg + "\n" + showStatistics(), title, imageID);
+//				popup_msg(msg + "\n" + showStatistics(), title, imageID);
+				popup_msg(showStatistics(), title, imageID);
 			}
 		});
 

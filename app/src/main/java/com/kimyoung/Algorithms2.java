@@ -30,28 +30,28 @@ public class Algorithms2 {
      * @param algorithm_choice
      *            choice of several algorithms
      *
-     * @param WeightsList
+     * @param parameter
      *             the RBF weights
      *
      * @return the location of user
      */
     public static String ProcessingAlgorithms(ArrayList<LogRecord> latestScanList, RadioMapMean RM, int algorithm_choice, String parameter) {
 
-        int i = 0, j = 0;
+        int i, j;
 
-        ArrayList<String> MacAdressList = RM.getMacAdressList();
+        ArrayList<String> MacAddressList = RM.getMacAddressList();
         ArrayList<String> Observed_RSS_Values = new ArrayList<String>();
-        LogRecord temp_LR = null;
+        LogRecord temp_LR;
 
         // Check which mac addresses of radio map, we are currently listening.
-        for (i = 0; i < MacAdressList.size(); ++i) {
+        for (i = 0; i < MacAddressList.size(); ++i) {
 
             for (j = 0; j < latestScanList.size(); ++j) {
 
                 temp_LR = latestScanList.get(j);
 
                 // MAC Address Matched
-                if (MacAdressList.get(i).compareTo(temp_LR.getBssid()) == 0) {
+                if (MacAddressList.get(i).compareTo(temp_LR.getBssid()) == 0) {
                     Observed_RSS_Values.add(String.valueOf(temp_LR.getRss()));
                     break;
                 }
@@ -301,7 +301,7 @@ public class Algorithms2 {
         float sumX = 0.0f;
         float sumY = 0.0f;
 
-        String[] LocationArray = new String[2];
+        String[] LocationArray;
         float x, y;
 
         int K_Min = K < LocDistance_Results_List.size() ? K : LocDistance_Results_List.size();
@@ -394,7 +394,7 @@ public class Algorithms2 {
         double WeightedSumY = 0.0f;
         double NP;
         float x, y;
-        String[] LocationArray = new String[2];
+        String[] LocationArray;
 
         // Calculate the sum of all probabilities
         for (int i = 0; i < LocDistance_Results_List.size(); ++i) {

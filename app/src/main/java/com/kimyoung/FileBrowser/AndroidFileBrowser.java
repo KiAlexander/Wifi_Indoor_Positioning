@@ -53,7 +53,7 @@ import com.kimyoung.RSSLogger;
 public class AndroidFileBrowser extends ListActivity implements OnClickListener {
 	// Enum For The Display Mode You Want
 	private enum DISPLAYMODE {
-		ABSOLUTE, RELATIVE;
+		ABSOLUTE, RELATIVE
 	}
 
 	private final DISPLAYMODE displayMode = DISPLAYMODE.ABSOLUTE;
@@ -65,10 +65,7 @@ public class AndroidFileBrowser extends ListActivity implements OnClickListener 
 	private TextView pwd;
 	private Button select_file_folder;
 	private boolean selectFolder = true;
-	private String IP;
-	private String PORT;
 	private String folder_path;
-	private String file_path;
 	private SharedPreferences sharedPreferences;
 
 	@Override
@@ -89,18 +86,9 @@ public class AndroidFileBrowser extends ListActivity implements OnClickListener 
 		sharedPreferences = getSharedPreferences(RSSLogger.SHARED_PREFS_NAME, MODE_PRIVATE);
 
 		folder_path = sharedPreferences.getString("folder_browser", "");
-		file_path = sharedPreferences.getString("upload_file", "");
-		IP = sharedPreferences.getString("serverIP", "");
-		PORT = sharedPreferences.getString("serverPORT", "");
 
 		if (selectFolder)
 			select_file_folder.setText("Save in this folder");
-		else {
-			select_file_folder.setText("Upload File");
-
-			if (file_path != null && !file_path.trim().equals("") && new File(file_path).canRead())
-				pwd.setText(file_path);
-		}
 
 		if (folder_path == null || folder_path.equals("")) {
 			browseToHome();
@@ -176,9 +164,9 @@ public class AndroidFileBrowser extends ListActivity implements OnClickListener 
 			break;
 		case RELATIVE: // On relative Mode, we have to add the current-path to
 			// the beginning
-			int currentPathStringLenght = this.currentDirectory.getAbsolutePath().length();
+			int currentPathStringLength = this.currentDirectory.getAbsolutePath().length();
 			for (File file : files) {
-				this.directoryEntries.add(file.getAbsolutePath().substring(currentPathStringLenght));
+				this.directoryEntries.add(file.getAbsolutePath().substring(currentPathStringLength));
 			}
 			break;
 		}
@@ -293,7 +281,7 @@ public class AndroidFileBrowser extends ListActivity implements OnClickListener 
 			View row = convertView;
 			// Check If Row Is Null
 			if (row == null) {
-				// Make New Layoutinflater
+				// Make New Layout inflater
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				row = vi.inflate(R.xml.file_row, parent, false);
 			}

@@ -35,7 +35,7 @@ public class LogRecord {
 	}
 	
 	public String toString() {
-		String str = new String();
+		String str ;
 		str = String.valueOf(bssid) + " " + String.valueOf(rss) + "\n";
 		return str;
 	}
